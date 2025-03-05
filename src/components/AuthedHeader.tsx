@@ -22,6 +22,9 @@ const AuthedHeader = () => {
                     <NavLink to="/profile" className="nav-link">
                         Profil
                     </NavLink>
+                    <NavLink to="/Books" className="nav-link">
+                        Böcker
+                    </NavLink>
                     
                 </nav>
 
@@ -43,7 +46,9 @@ const AuthedHeader = () => {
                     <NavLink to="/profile" className="mobile-link" onClick={() => setIsMenuOpen(false)}>
                         Profil
                     </NavLink>
-                
+                    <NavLink to="/Books" className="nav-link">
+                        Böcker
+                    </NavLink>
                 </nav>
             )}
         </header>

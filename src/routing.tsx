@@ -5,6 +5,7 @@ import ProfilePage from "./pages/ProfilePage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DynamicLayout from "./components/DynamicLayout";
 import { HomePage } from "./pages/HomePage";
+import BookPage from "./pages/BookPage";
 
 const router = createBrowserRouter([
     {
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
             { path: "/", element: <HomePage /> },
             { path: "/login", element: <LoginPage /> },
             { path: "/register", element: <RegisterPage /> },
+            { path: "/books", element: <BookPage /> },
             { path: "/profile", element: <ProtectedRoute><ProfilePage /></ProtectedRoute> }
         ]
     }

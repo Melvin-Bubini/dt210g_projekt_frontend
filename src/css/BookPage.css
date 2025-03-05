@@ -1,0 +1,175 @@
+.book-page {
+    padding: 0 2em
+}
+
+/* Sökformulär */
+.search-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 300px;
+    padding: 10px;
+    border: 2px solid #444;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #1e1e1e;
+    color: #fff;
+}
+
+.search-button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+.search-button:hover {
+    background: #0056b3;
+}
+
+/* Tabell-container */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Tabell */
+.book-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #1e1e1e;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Tabellens header */
+.book-table thead {
+    background: #007bff;
+    color: white;
+}
+
+.book-table th, 
+.book-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+/* Bok-rad animation */
+.book-row {
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.book-row:hover {
+    background: #292929;
+    transform: scale(1.02);
+}
+
+/* Bok-bild */
+.book-thumbnail {
+    max-width: 100px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 5px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.book-thumbnail:hover {
+    transform: scale(1.1);
+}
+
+/* "Ingen bild" text */
+.no-image {
+    width: 100px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #444;
+    color: #bbb;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+/* Responsiv design för små skärmar */
+@media (max-width: 768px) {
+    /* Döljer tabellhuvudet på små skärmar */
+    .book-table thead {
+        display: none;
+    }
+
+    .book-table tr {
+        margin-bottom: 15px;
+        background-color: #292929;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        padding: 15px;
+    }
+
+    .book-table td {
+        position: relative;
+        padding: 15px;
+    }
+
+    .book-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    /* Bokbild */
+    .book-thumbnail {
+        max-width: 80px;
+        height: 120px;
+    }
+
+    .no-image {
+        width: 80px;
+        height: 120px;
+    }
+
+    /* Texten för varje bok i kortformat */
+    .book-title, .book-authors, .book-description, .book-published-date {
+        font-size: 14px;
+        margin: 5px 0;
+    }
+
+    .book-title {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .book-row {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .book-row img {
+        margin-bottom: 10px;
+    }
+
+    .book-description {
+        font-size: 12px;
+        color: #bbb;
+    }
+
+    .book-card {
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+}
