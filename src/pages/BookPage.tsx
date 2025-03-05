@@ -2,19 +2,21 @@ import { useBooks } from "../context/BookContext";
 import SearchForm from "../components/SearchForm";
 import { useNavigate } from "react-router-dom";
 
+
 const BookPage = () => {
     const { books, loading } = useBooks();
     const navigate = useNavigate();
 
     return (
         <div className="book-page">
-            <h1 className="title">Sök efter böcker</h1>
+            <h1 className="title text-center text-3xl mt-10">Sök efter böcker</h1>
+            <h2 className="title text-center text-2xl mb-10">Skriv in vilken bok du letar efter</h2>
             <SearchForm /> {/* Sökformulär */}
 
             {loading ? (
-                <h3 className="loading-message">Laddar böcker...</h3>
+                <h3 className="loading-message text-center">Laddar böcker...</h3>
             ) : !books.length ? (
-                <h3 className="error-message">Inga böcker hittades.</h3>
+                <h3 className="error-message text-center">Inga böcker hittades.</h3>
             ) : (
                 <div className="table-container">
                     <table className="book-table">

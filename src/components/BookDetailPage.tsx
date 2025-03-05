@@ -6,6 +6,7 @@ import "../css/BookDetailPage.css"
 const BookDetailPage = () => {
     const { id } = useParams();
     const [book, setBook] = useState<Book | null>(null);
+    const [googleReviews, setGoogleReviews] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
@@ -24,6 +25,12 @@ const BookDetailPage = () => {
                     smallThumbnail: data.volumeInfo.imageLinks?.smallThumbnail || "",
                     thumbnail: data.volumeInfo.imageLinks?.thumbnail || "",
                 });
+
+                // Hämta recensioner från Google (om finns)
+                setGoogleReviews(data.volumeInfo.ratingsCount > 0 ? {
+                    rating: data.volumeInfo.averageRating,
+                    count: data.volumeInfo.ratingsCount
+                } : null);
             } catch (error) {
                 console.error("Fel vid hämtning av bok:", error);
             } finally {
@@ -47,8 +54,15 @@ const BookDetailPage = () => {
                     )}
                     <div className="book-info">
                         <h1>{book.title}</h1>
-                        <h3>Författare: {book.authors}</h3>
+                        <p><strong>Författare:</strong> {book.authors}</p>
                         <p><strong>Publiceringsdatum:</strong> {book.publishedDate}</p>
+                        {googleReviews ? (
+                            <div className="google-reviews">
+                                <p><strong>Google Betyg:</strong> {googleReviews.rating}⭐ av  ({googleReviews.count} röster)</p>
+                            </div>
+                        ) : (
+                            <p>Inga recensioner från Google.</p>
+                        )}
                         <p><strong>Beskrivning:</strong> {book.description}</p>
                     </div>
                 </div>
