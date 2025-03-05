@@ -1,8 +1,10 @@
 import { useBooks } from "../context/BookContext";
 import SearchForm from "../components/SearchForm";
+import { useNavigate } from "react-router-dom";
 
 const BookPage = () => {
     const { books, loading } = useBooks();
+    const navigate = useNavigate();
 
     return (
         <div className="book-page">
@@ -27,7 +29,7 @@ const BookPage = () => {
                         </thead>
                         <tbody>
                             {books.map((book) => (
-                                <tr key={book.id} className="book-row">
+                                <tr key={book.id} className="book-row" onClick={() => navigate(`/book/${book.id}`)}>
                                     <td>
                                         {book.thumbnail ? (
                                             <img src={book.thumbnail} alt={book.title} className="book-thumbnail" />

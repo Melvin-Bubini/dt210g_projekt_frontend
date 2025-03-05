@@ -18,3 +18,66 @@ body {
   margin: 0;
   padding: 0;
 }
+
+/* Bas-styling för alla knappar */
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover-effekt för alla knappar */
+.btn:hover {
+  transform: scale(1.05);
+}
+
+/* Specifika typer av knappar */
+.btn-delete {
+  background-color: #dc2626; /* Röd */
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #b91c1c;
+}
+
+.btn-save {
+  background-color: #16a34a; /* Grön */
+  color: white;
+}
+
+.btn-save:hover {
+  background-color: #15803d;
+}
+
+.btn-back {
+  background-color: #374151; /* Grå */
+  color: white;
+}
+
+.btn-back:hover {
+  background-color: #1f2937;
+}
+
+.btn-add {
+  background-color: #2563eb; /* Blå */
+  color: white;
+}
+
+.btn-add:hover {
+  background-color: #1d4ed8;
+}
+
+.btn-update {
+  background-color: #eab308; /* Gul */
+  color: black;
+}
+
+.btn-update:hover {
+  background-color: #ca8a04;
+}
+
