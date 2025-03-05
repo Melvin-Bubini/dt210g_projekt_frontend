@@ -1,0 +1,10 @@
+footer {
+    margin: 0%;
+    padding: 2em 0;
+    text-align: center;
+    border-top: solid 2px white;
+    width: 100%;
+}
+footer p {
+    margin-bottom: 0%;
+}
