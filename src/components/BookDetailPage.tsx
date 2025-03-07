@@ -6,16 +6,31 @@ import "../css/BookDetailPage.css"
 const BookDetailPage = () => {
     const { id } = useParams();
     const [book, setBook] = useState<Book | null>(null);
-    const [googleReviews, setGoogleReviews] = useState<any>(null);
+    const [googleReviews, setGoogleReviews] = useState<{ rating: number; count: number } | null>(null);
+    const [userReview, setUserReview] = useState<any[] | null>(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchBookDetails = async () => {
             try {
-                const respone = await fetch(`https://www.googleapis.com/books/v1/volumes/${id}`);
-                const data = await respone.json();
-
+                const googleResponse = await fetch(`https://www.googleapis.com/books/v1/volumes/${id}`);
+                
+                // Kontrollera om svaret är OK
+                if (!googleResponse.ok) {
+                    throw new Error(`Fel från Google API: ${googleResponse.statusText}`);
+                }
+    
+                const googleText = await googleResponse.text();   
+                if (!googleText) {
+                    throw new Error("Tomt svar från Google API");
+                }
+    
+                const data = JSON.parse(googleText); // Parse JSON efter textkontrollen
+                if (!data || !data.volumeInfo) {
+                    throw new Error("Inget giltigt dataobjekt mottogs från Google API.");
+                }
+    
                 setBook({
                     id: data.id,
                     title: data.volumeInfo.title,
@@ -25,20 +40,47 @@ const BookDetailPage = () => {
                     smallThumbnail: data.volumeInfo.imageLinks?.smallThumbnail || "",
                     thumbnail: data.volumeInfo.imageLinks?.thumbnail || "",
                 });
-
-                // Hämta recensioner från Google (om finns)
+    
                 setGoogleReviews(data.volumeInfo.ratingsCount > 0 ? {
                     rating: data.volumeInfo.averageRating,
                     count: data.volumeInfo.ratingsCount
                 } : null);
+    
+                // Hämtar recensioner från eget API
+                const userResponse = await fetch(`http://localhost:4000/reviews/${id}`);
+    
+                if (!userResponse.ok) {
+                    if (userResponse.status === 404) {
+                        console.warn(`Ingen recension hittades för boken med id: ${id}`);
+                        setUserReview([]); // Här sätts en tom array för att indikera att det inte finns recensioner
+                    } else {
+                        throw new Error("Något gick fel vid hämtning av recensioner");
+                    }
+                }
+    
+                const userText = await userResponse.text();
+    
+                if (!userText) {
+                    setUserReview([]); // Om svaret är tomt, sätt till tom array
+                } else {
+                    const userData = JSON.parse(userText);
+                    if (userData && Array.isArray(userData)) {
+                        setUserReview(userData);
+                    } else {
+                        setUserReview([]); // Om inget är returnerat, sätt till tom array
+                    }
+                }
+    
             } catch (error) {
                 console.error("Fel vid hämtning av bok:", error);
             } finally {
                 setLoading(false);
             }
         };
+    
         fetchBookDetails();
     }, [id]);
+    
 
     return (
         <div className="book-detail-page">
@@ -62,6 +104,19 @@ const BookDetailPage = () => {
                             </div>
                         ) : (
                             <p>Inga recensioner från Google.</p>
+                        )}
+                        {userReview && userReview.length > 0 ? (
+                            <div className="user-reviews">
+                                {userReview.map((review, index) => (
+                                    <div key={index} className="user-review">
+                                        <p><strong>Betyg:</strong> {review.rating}⭐</p>
+                                        <p><strong>Recension:</strong> {review.text}</p>
+                                        <p><em>– Användare {review.userId}</em></p>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <p>Inga recensioner från användare.</p>
                         )}
                         <p><strong>Beskrivning:</strong> {book.description}</p>
                     </div>
