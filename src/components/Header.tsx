@@ -18,11 +18,11 @@ const Header = () => {
                     <NavLink to="/" className="nav-link">
                         Startsida
                     </NavLink>
+                    <NavLink to="/books" className="nav-link">
+                        Böcker
+                    </NavLink>
                     <NavLink to="/login" className="nav-link">
                         Logga in
-                    </NavLink>
-                    <NavLink to="/register" className="nav-link">
-                        Registrera
                     </NavLink>
                 </nav>
 
@@ -41,11 +41,11 @@ const Header = () => {
                     <NavLink to="/" className="mobile-link" onClick={() => setIsMenuOpen(false)}>
                         Startsida
                     </NavLink>
-                    <NavLink to="/login" className="mobile-link" onClick={() => setIsMenuOpen(false)}>
-                        Logga in
+                    <NavLink to="/books" className="nav-link">
+                        Böcker
                     </NavLink>
-                    <NavLink to="/register" className="mobile-link" onClick={() => setIsMenuOpen(false)}>
-                        Registrera
+                    <NavLink to="/login" className="nav-link">
+                        Logga in
                     </NavLink>
                 </nav>
             )}

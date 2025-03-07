@@ -1,11 +1,17 @@
 import { useBooks } from "../context/BookContext";
 import SearchForm from "../components/SearchForm";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
 
 
 const BookPage = () => {
-    const { books, loading } = useBooks();
+    const { books, loading, fetchBooks } = useBooks();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        fetchBooks("Book");
+    }, []);
 
     return (
         <div className="book-page">

@@ -16,9 +16,9 @@ const router = createBrowserRouter([
             { path: "/", element: <HomePage /> },
             { path: "/login", element: <LoginPage /> },
             { path: "/register", element: <RegisterPage /> },
-            { path: "/books", element: <ProtectedRoute><BookPage /></ProtectedRoute> },
+            { path: "/books", element: <BookPage /> },
             { path: "/profile", element: <ProtectedRoute><ProfilePage /></ProtectedRoute> },
-            { path: "/book/:id", element: <ProtectedRoute><BookDetailPage /></ProtectedRoute> }
+            { path: "/book/:id", element: <BookDetailPage /> }
         ]
     }
 ]);
