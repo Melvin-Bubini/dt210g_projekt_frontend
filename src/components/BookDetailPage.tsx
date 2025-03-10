@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { addReview, updateReview, deleteReview, getReviews } from "../services/Reviews.services";
 import { Book } from "../types/books.types";
-import { Review } from "../types/reviews.types";
 import { useAuth } from "../context/AuthContext";
 import "../css/BookDetailPage.css"
 
@@ -13,7 +12,7 @@ const BookDetailPage = () => {
     const [userReview, setUserReview] = useState<any[] | null>(null);
     const [loading, setLoading] = useState(true);
     const [newReview, setNewReview] = useState({ rating: 1, text: "" });
-    const [editingReview, setEditingReview] = useState<{ rating: number; text: string } | null>(null); // För uppdateringsformuläret
+    const [editingReview, setEditingReview] = useState<{ rating: number; text: string } | null>(null);
     const [editingReviewId, setEditingReviewId] = useState<string | null>(null);
     const { user } = useAuth();
     const navigate = useNavigate();
@@ -73,7 +72,7 @@ const BookDetailPage = () => {
             });
 
             setUserReview([...(userReview || []), addedReview]); // Uppdatera listan direkt
-            setNewReview({ rating: 0, text: "" }); // Töm formuläret
+            setNewReview({ rating: 1, text: "" }); // Töm formuläret
         } catch (error) {
             console.error("Fel vid tillägg av recension:", error);
         }
@@ -141,6 +140,7 @@ const BookDetailPage = () => {
                         <h1>{book.title}</h1>
                         <p><strong>Författare:</strong> {book.authors}</p>
                         <p><strong>Publiceringsdatum:</strong> {book.publishedDate}</p>
+                        <p><strong>Beskrivning:</strong> {book.description}</p>
                         {googleReviews ? (
                             <div className="google-reviews">
                                 <p><strong>Google Betyg:</strong> {googleReviews.rating}⭐ av  ({googleReviews.count} röster)</p>
@@ -151,50 +151,51 @@ const BookDetailPage = () => {
                         {userReview && userReview.length > 0 ? (
                             <div className="user-reviews">
                                 {userReview.map((review) => (
-                                    <div key={review.id} className="user-review">
-                                        <p><strong>Betyg:</strong> {review.rating}⭐</p>
-                                        <p><strong>Recension:</strong> {review.reviewText}</p>
-                                        <p><em>– Användare {review.userId}</em></p>
-                                        <button onClick={() => handleDeleteReview(review.id)}>❌ Ta bort</button>
-                                        <button onClick={() => openUpdateForm(review)}>✏️ Uppdatera</button>
+                                    <div key={review.id}>
+                                        <div className="user-review">
+                                            <p><strong>Betyg:</strong> {review.rating}⭐</p>
+                                            <p><strong>Recension:</strong> {review.reviewText}</p>
+                                            <p><em>– Användare {review.userId}</em></p>
+                                            <button className="back-btn" onClick={() => handleDeleteReview(review.id)}>❌ Ta bort</button>
+                                            <button onClick={() => openUpdateForm(review)}>✏️ Uppdatera</button>
+                                        </div>
+                                        
+                                        {/* Inline uppdateringsformulär - visas endast för den valda recensionen */}
+                                        {editingReviewId === review.id && editingReview && (
+                                            <div className="update-review-form">
+                                                <div className="review-form">
+                                                    <input
+                                                        type="number"
+                                                        min="1"
+                                                        max="5"
+                                                        value={editingReview.rating}
+                                                        onChange={(e) => setEditingReview({ 
+                                                            ...editingReview, 
+                                                            rating: Number(e.target.value) 
+                                                        })}
+                                                        required
+                                                        step="1"
+                                                    />
+                                                    <textarea
+                                                        value={editingReview.text}
+                                                        onChange={(e) => setEditingReview({ 
+                                                            ...editingReview, 
+                                                            text: e.target.value 
+                                                        })}
+                                                        placeholder="Uppdatera din recension..."
+                                                    />
+                                                    <div className="update-buttons">
+                                                        <button onClick={handleUpdateReview}>✅ Spara</button>
+                                                        <button className="back-btn" onClick={closeUpdateForm}>❌ Avbryt</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
                                 ))}
                             </div>
                         ) : (
                             <p>Inga recensioner från användare.</p>
-                        )}
-                        
-                        {/* Uppdateringsformulär */}
-                        {editingReview && (
-                            <div className="update-review-form">
-                                <h2>Uppdatera recension</h2>
-                                <div className="review-form">
-                                    <input
-                                        type="number"
-                                        min="1"
-                                        max="5"
-                                        value={editingReview.rating}
-                                        onChange={(e) => setEditingReview({ 
-                                            ...editingReview, 
-                                            rating: Number(e.target.value) 
-                                        })}
-                                        required
-                                        step="1"
-                                    />
-                                    <textarea
-                                        value={editingReview.text}
-                                        onChange={(e) => setEditingReview({ 
-                                            ...editingReview, 
-                                            text: e.target.value 
-                                        })}
-                                        placeholder="Uppdatera din recension..."
-                                    />
-                                    <div className="update-buttons">
-                                        <button onClick={handleUpdateReview}>✅ Spara</button>
-                                        <button onClick={closeUpdateForm}>❌ Avbryt</button>
-                                    </div>
-                                </div>
-                            </div>
                         )}
                         
                         {/* Formulär för att lägga till recension */}
@@ -216,7 +217,6 @@ const BookDetailPage = () => {
                             />
                             <button onClick={handleAddReview}>➕ Lägg till recension</button>
                         </div>
-                        <p><strong>Beskrivning:</strong> {book.description}</p>
                     </div>
                 </div>
             ) : (
