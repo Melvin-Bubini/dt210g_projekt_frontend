@@ -1,23 +1,106 @@
-
 .book-page {
     padding: 0 2em
+}
+
+.search-input-error {
+    border-color: #ff3333;
+}
+
+.clear-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+    margin: 0;
+    margin-left: 1em;
+    padding: 0;
+}
+
+.error-message {
+    color: #ff3333;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.recent-searches-header {
+    display: flex;
+    margin-bottom: 8px;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.recent-searches-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+}
+
+.recent-search-item {
+    position: relative;
+}
+
+.recent-search-button {
+    background-color: #242424;
+    border: 1px solid #ddd;
+    padding: 4px 28px 4px 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    position: relative;
+}
+
+.remove-search {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.remove-search:hover {
+    color: #ff3333;
+}
+
+.clear-history-button {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 0.8rem;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.clear-history-button:hover {
+    color: #ff3333;
+}
+
+.search-tips {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 10px;
 }
 
 /* Sökformulär */
 .search-form {
     display: flex;
-    justify-content: center;
     margin-bottom: 20px;
+    flex-direction: column;
+    align-items: center;
 }
+
+
 
 .search-input {
     width: 300px;
     padding: 10px;
-    border: 2px solid #444;
     border-radius: 5px;
     font-size: 16px;
     background: #1e1e1e;
     color: #fff;
+    
 }
 
 .search-button {
@@ -25,7 +108,6 @@
     color: white;
     border: none;
     padding: 10px 15px;
-    margin-left: 10px;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
@@ -58,7 +140,7 @@
     color: white;
 }
 
-.book-table th, 
+.book-table th,
 .book-table td {
     padding: 15px;
     text-align: left;
@@ -104,6 +186,7 @@
 
 /* Responsiv design för små skärmar */
 @media (max-width: 768px) {
+
     /* Döljer tabellhuvudet på små skärmar */
     .book-table thead {
         display: none;
@@ -142,12 +225,16 @@
     }
 
     /* Texten för varje bok i kortformat */
-    .book-title, .book-authors, .book-description, .book-published-date {
+    .book-title,
+    .book-authors,
+    .book-description,
+    .book-published-date {
         font-size: 14px;
         margin: 5px 0;
     }
 
-    .book-title, .title {
+    .book-title,
+    .title {
         font-size: 16px;
         font-weight: bold;
     }
