@@ -11,7 +11,7 @@ const AuthedHeader = () => {
             <div className="header-container">
                 {/* Logo */}
                 <NavLink to="/" className="logo">
-                    Projekt
+                    Bookshelf
                 </NavLink>
 
                 {/* Meny för stora skärmar */}

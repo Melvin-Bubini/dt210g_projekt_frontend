@@ -10,7 +10,7 @@ const Header = () => {
             <div className="header-container">
                 {/* Logo */}
                 <NavLink to="/" className="logo">
-                    Moment 3
+                    Bookshelf
                 </NavLink>
 
                 {/* Meny för stora skärmar */}

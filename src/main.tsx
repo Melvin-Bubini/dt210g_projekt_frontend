@@ -6,6 +6,7 @@ import router from './routing.tsx'
 import 'tailwindcss'
 import { AuthProvider } from './context/AuthContext.tsx'
 import { BookProvider } from './context/BookContext.tsx'
+import "./index.css"
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

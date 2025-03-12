@@ -1,84 +1,94 @@
 .header {
-    background: #1a1a1a;
-    color: white;
-    padding: 15px 20px;
-  }
-  
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: auto;
-  }
-  
-  .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-decoration: none;
-    color: white;
-  }
-  
+  background: #1a1a1a;
+  color: white;
+  padding: 15px 20px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #fff;
+  /* Gör texten vit eller den färg du vill när den inte är hoverad */
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.nav-link.active {
+  color: transparent;
+  background: linear-gradient(45deg, #ff6b81, #9b59b6);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.logo.active {
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: transparent;
+  background: linear-gradient(45deg, #ff6b81, #9b59b6);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Dölj hamburgarknappen på stora skärmar */
+.menu-button {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* Responsiv design */
+@media (max-width: 768px) {
   .nav-links {
+    display: none;
+  }
+
+  .menu-button {
+    display: block;
+  }
+
+  .mobile-menu {
     display: flex;
-    gap: 20px;
+    flex-direction: column;
+    gap: 10px;
+    background: #222;
+    padding: 10px;
   }
-  
-  .nav-link {
-    text-decoration: none;
+
+  .mobile-link {
     color: white;
+    text-decoration: none;
     font-size: 1rem;
-    transition: color 0.3s;
+    transition: background 0.3s;
   }
-  
+
   .active {
     text-decoration: underline;
   }
-  
-  .nav-link:hover {
-    color: #2137fc;
+
+  .mobile-link:hover {
+    background: #333;
   }
-  
-  /* Dölj hamburgarknappen på stora skärmar */
-  .menu-button {
-    display: none;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-  }
-  
-  /* Responsiv design */
-  @media (max-width: 768px) {
-    .nav-links {
-      display: none;
-    }
-  
-    .menu-button {
-      display: block;
-    }
-  
-    .mobile-menu {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      background: #222;
-      padding: 10px;
-    }
-  
-    .mobile-link {
-      color: white;
-      text-decoration: none;
-      font-size: 1rem;
-      padding: 10px;
-      transition: background 0.3s;
-    }
-  
-    .active {
-      text-decoration: underline;
-    }
-  
-    .mobile-link:hover {
-      background: #333;
-    }
-  }
+}
