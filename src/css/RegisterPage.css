@@ -20,7 +20,7 @@
 .error-message {
     color: red;
     font-size: 12px;
-    margin-bottom: 2em;
+    margin-bottom: 1em !important;
 }
 
 .form-group {
@@ -50,7 +50,7 @@
 .input:focus,
 input:valid {
     outline: none;
-    border: 1.5px solid #1a73e8;
+    border: 1.5px solid #ff6b81;
 }
 
 .input:focus~label,
@@ -58,7 +58,7 @@ input:valid~label {
     transform: translateY(-50%) scale(0.8);
     background-color: #212121;
     padding: 0 .2em;
-    color: #2196f3;
+    color: #ff6b81 !important;
 }
 
 .submitBtn {
@@ -67,7 +67,7 @@ input:valid~label {
     padding-bottom: 16px;
     padding-top: 16px;
     border-radius: 9px;
-    background: #2137fc;
+    background: linear-gradient(45deg, #9b59b6, #ff6b81) !important;
     border: none;
     font-family: inherit;
     text-align: center;
@@ -76,10 +76,6 @@ input:valid~label {
 }
 
 .submitBtn:hover {
-    box-shadow: 7px 5px 56px -14px #2137fc;
+    box-shadow: 7px 5px 56px -14px #ff6b81;
 }
 
-.submitBtn:active {
-    transform: scale(0.97);
-    box-shadow: 7px 5px 56px -10px #2137fc;
-}
