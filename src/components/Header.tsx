@@ -38,13 +38,13 @@ const Header = () => {
             {/* Dropdown-meny för små skärmar */}
             {isMenuOpen && (
                 <nav className="mobile-menu">
-                    <NavLink to="/" className="mobile-link" onClick={() => setIsMenuOpen(false)}>
+                    <NavLink to="/" className="nav-link" onClick={() => setIsMenuOpen(false)}>
                         Startsida
                     </NavLink>
-                    <NavLink to="/books" className="nav-link">
+                    <NavLink to="/books" className="nav-link" onClick={() => setIsMenuOpen(false)}>
                         Böcker
                     </NavLink>
-                    <NavLink to="/login" className="nav-link">
+                    <NavLink to="/login" className="nav-link" onClick={() => setIsMenuOpen(false)}>
                         Logga in
                     </NavLink>
                 </nav>

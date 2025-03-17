@@ -61,12 +61,12 @@ const BookDetailPage = () => {
 
     const validateReview = (review = newReview) => {
         const newErrors: { rating?: string; text?: string } = {};
-        
+
         // Validera betyg
         if (review.rating < 1 || review.rating > 5 || isNaN(review.rating)) {
             newErrors.rating = "Betyg måste vara mellan 1 och 5.";
         }
-        
+
         // Validera text
         if (review.text.length > 200) {
             newErrors.text = "Recensionstexten får inte vara längre än 200 tecken.";
@@ -87,7 +87,7 @@ const BookDetailPage = () => {
             return alert("Du måste vara inloggad för att skriva en recension!");
         }
         if (!validateReview()) return;
-        
+
         try {
             const addedReview = await addReview({
                 bookId: id as string,
@@ -105,6 +105,18 @@ const BookDetailPage = () => {
     };
 
     const handleDeleteReview = async (reviewId: string) => {
+        if (!user) {
+            return alert("Du måste vara inloggad för att radera en recension!");
+        }
+
+        // Hittar review att radera
+        const reviewToDelete = userReview?.find(review => review.id === reviewId);
+
+        // Kollar om den här användaren är samma som skrev den
+        if (!reviewToDelete || user.id !== reviewToDelete.userId) {
+            return alert("Du kan endast radera dina egna recensioner!");
+        }
+
         try {
             await deleteReview(reviewId);
             setUserReview((userReview || []).filter(review => review.id !== reviewId)); // Uppdatera listan direkt
@@ -138,7 +150,20 @@ const BookDetailPage = () => {
 
     // Hantera uppdatering
     const handleUpdateReview = async () => {
+        if (!user) {
+            return alert("Du måste vara inloggad för att redigera en recension!");
+        }
+
         if (!editingReview || !editingReviewId) return;
+
+        const reviewToUpdate = userReview?.find(review => review.id === editingReview);
+
+        if (!reviewToUpdate || user.id !== reviewToUpdate.userId) {
+            alert("Du kan endast redigera dina egna recensioner!");
+            closeUpdateForm();
+            return;
+        }
+
         if (!validateUpdateReview()) return;
 
         try {
@@ -161,17 +186,17 @@ const BookDetailPage = () => {
     // Hantera ändringar i uppdateringsformuläret med validering
     const handleEditingChange = (field: 'text' | 'rating', value: string | number) => {
         if (!editingReview) return;
-        
+
         const updatedReview = {
             ...editingReview,
             [field]: field === 'rating' ? (Number(value) || 1) : value
         };
-        
+
         setEditingReview(updatedReview);
-        
+
         // Validera kontinuerligt
-        const newErrors: { rating?: string; text?: string } = {...errors};
-        
+        const newErrors: { rating?: string; text?: string } = { ...errors };
+
         if (field === 'rating') {
             const ratingValue = Number(value);
             if (ratingValue < 1 || ratingValue > 5 || isNaN(ratingValue)) {
@@ -187,7 +212,7 @@ const BookDetailPage = () => {
                 delete newErrors.text;
             }
         }
-        
+
         setErrors(newErrors);
     };
 
@@ -197,12 +222,12 @@ const BookDetailPage = () => {
             ...newReview,
             [field]: field === 'rating' ? (Number(value) || 1) : value
         };
-        
+
         setNewReview(updatedReview);
-        
+
         // Validera kontinuerligt
-        const newErrors: { rating?: string; text?: string } = {...errors};
-        
+        const newErrors: { rating?: string; text?: string } = { ...errors };
+
         if (field === 'rating') {
             const ratingValue = Number(value);
             if (ratingValue < 1 || ratingValue > 5 || isNaN(ratingValue)) {
@@ -218,7 +243,7 @@ const BookDetailPage = () => {
                 delete newErrors.text;
             }
         }
-        
+
         setErrors(newErrors);
     };
 
@@ -256,7 +281,7 @@ const BookDetailPage = () => {
                                                 <p>
                                                     <strong>Recension:</strong> {truncateText(review.reviewText)}
                                                     {review.reviewText.length > 50 && (
-                                                        <button 
+                                                        <button
                                                             className="read-more-btn"
                                                             onClick={() => alert(review.reviewText)}
                                                         >
@@ -285,7 +310,7 @@ const BookDetailPage = () => {
                                                         step="1"
                                                     />
                                                     {errors.rating && <p className="error-message">{errors.rating}</p>}
-                                                    
+
                                                     <label className="review-label" htmlFor="update-text">Text:</label>
                                                     <textarea
                                                         id="update-text"
@@ -297,10 +322,10 @@ const BookDetailPage = () => {
                                                     <div className="character-count">
                                                         {editingReview.text.length}/200 tecken
                                                     </div>
-                                                    
+
                                                     <div className="update-buttons">
-                                                        <button 
-                                                            className="save-btn" 
+                                                        <button
+                                                            className="save-btn"
                                                             onClick={handleUpdateReview}
                                                             disabled={Object.keys(errors).length > 0}
                                                         >
@@ -333,7 +358,7 @@ const BookDetailPage = () => {
                                 step="1"
                             />
                             {errors.rating && <p className="error-message">{errors.rating}</p>}
-                            
+
                             <label className="review-label" htmlFor="review-text">Text:</label>
                             <textarea
                                 id="review-text"
@@ -345,9 +370,9 @@ const BookDetailPage = () => {
                             <div className="character-count">
                                 {newReview.text.length}/200 tecken
                             </div>
-                            
-                            <button 
-                                className="add-btn" 
+
+                            <button
+                                className="add-btn"
                                 onClick={handleAddReview}
                                 disabled={Object.keys(errors).length > 0}
                             >
