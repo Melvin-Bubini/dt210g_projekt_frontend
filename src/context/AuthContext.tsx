@@ -16,7 +16,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const login = async (credentials: LoginCredentials) => {
 
         try {
-            const response = await fetch("http://localhost:4000/users/login", {
+            const response = await fetch("https://dt210g-projekt-api.onrender.com/users/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -49,7 +49,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     // registrera användare
     const register = async (credentials: RegisterCredentials) => {
         try {
-            const response = await fetch("http://localhost:4000/users/register", {
+            const response = await fetch("https://dt210g-projekt-api.onrender.com/users/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -81,7 +81,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
 
         try {
-            const response = await fetch("http://localhost:4000/users/validate", {
+            const response = await fetch("https://dt210g-projekt-api.onrender.com/users/validate", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

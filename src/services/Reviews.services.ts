@@ -1,10 +1,10 @@
 import { Review } from "../types/reviews.types";
 
-const API_URL = "http://localhost:4000/reviews";
+const API_URL = "https://dt210g-projekt-api.onrender.com/reviews";
 
 export const getReviews = async (bookId: string): Promise<Review[]> => {
     try {
-        const response = await fetch(`http://localhost:4000/reviews/book/${bookId}`);
+        const response = await fetch(`https://dt210g-projekt-api.onrender.com/reviews/book/${bookId}`);
 
         if (!response.ok) {
             if (response.status === 404) {
