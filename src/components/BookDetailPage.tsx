@@ -156,7 +156,7 @@ const BookDetailPage = () => {
 
         if (!editingReview || !editingReviewId) return;
 
-        const reviewToUpdate = userReview?.find(review => review.id === editingReview);
+        const reviewToUpdate = userReview?.find(review => review.id === editingReviewId);
 
         if (!reviewToUpdate || user.id !== reviewToUpdate.userId) {
             alert("Du kan endast redigera dina egna recensioner!");
