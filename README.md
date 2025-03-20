@@ -1,54 +1,41 @@
-# React + TypeScript + Vite
+# Projekt: Bokrecensionsplattform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Beskrivning
 
-Currently, two official plugins are available:
+Detta projekt är en webbapplikation för att söka efter böcker via Google Books API, läsa recensioner samt skriva, redigera och ta bort egna recensioner. Plattformen är byggd med React och TypeScript för frontend, och NestJS för backend. Användare kan skapa konto, logga in och hantera sina recensioner.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Funktionalitet
 
-## Expanding the ESLint configuration
+- Sök efter böcker via Google Books API
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Visa detaljerad information om en bok
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- Läsa recensioner skrivna av andra användare
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- Skapa, redigera och radera egna recensioner (kräver inloggning)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Användarautentisering med JWT
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- Hantering av global state med React Context API
+
+- Navigering med React Router
+
+## Teknologier
+
+- Frontend: React, TypeScript, React Router, React Context API
+
+- Backend: NestJS, SQLite, JWT för autentisering
+
+- API: Google Books API för bokdata
+
+- Stil: CSS och Bootstrap
+
+## Användning
+
+Registrera en användare eller logga in
+
+Sök efter böcker och visa detaljer
+
+Läs recensioner eller skapa egna (kräver inloggning)
+
+Hantera recensioner genom att redigera eller radera dem
